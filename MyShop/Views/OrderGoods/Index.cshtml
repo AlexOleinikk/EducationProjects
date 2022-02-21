@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MyShop.Models.OrderGood>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div style="padding: 10px">
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Good.AuthorMail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Good.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Good.Price)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Good.AuthorMail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Good.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Good.Price)
+                </td>
+                <td>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>

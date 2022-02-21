@@ -1,0 +1,66 @@
+﻿@using MyShop.MyFolder
+
+@model MyShop.Models.Good
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div style="padding: 10px">
+    <h1>Create</h1>
+
+    <h4>Good</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShortDesc" class="control-label"></label>
+                    <input asp-for="ShortDesc" class="form-control" />
+                    <span asp-validation-for="ShortDesc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LongDesc" class="control-label"></label>
+                    <input asp-for="LongDesc" class="form-control" />
+                    <span asp-validation-for="LongDesc" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none">
+                    <label asp-for="AuthorMail" class="control-label"></label>
+                    <input asp-for="AuthorMail" class="form-control" value="@CurrentUser.currentUser.Email"/>
+                    <span asp-validation-for="AuthorMail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryName" class="control-label"></label>
+                    <select asp-for="CategoryName" class ="form-control" asp-items="ViewBag.CategoryName"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

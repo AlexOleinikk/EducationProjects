@@ -1,0 +1,46 @@
+﻿@using MyShop.MyFolder
+
+@model IEnumerable<MyShop.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div style="padding: 10px">
+    <h1>My Orders</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalSum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTime)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+        if (item.User.Email == CurrentUser.currentUser.Email)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    <a asp-controller="OrderGoods" asp-action="Details" asp-route-id="@item.ID" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+        }
+    }
+        </tbody>
+    </table>
+    <p>
+        <a class="btn btn-primary" asp-controller="Goods" asp-action="Index">Back to goods</a>
+    </p>
+</div>

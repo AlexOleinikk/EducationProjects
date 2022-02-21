@@ -1,0 +1,65 @@
+﻿@model MyShop.ViewModels.UserRegistrationViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div style="padding: 10px">
+    <h1>Registration</h1>
+
+    <h4>Create a new account</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            @using (Html.BeginForm("Register", "Registration", FormMethod.Post))
+            {
+                <form asp-action="Register">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        @Html.TextBoxFor(m => m.Email, new { Class="form-control" })
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        @Html.TextBoxFor(m => m.Name, new { Class="form-control" })
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Surname" class="control-label"></label>
+                        @Html.TextBoxFor(m => m.Surname, new { Class="form-control" })
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        @Html.TextBoxFor(m => m.Phone, new { Class="form-control" })
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        @Html.TextBoxFor(m => m.Password, new { Class="form-control" })
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PasswordSecond" class="control-label">Enter password second time</label>
+                        @Html.TextBoxFor(m => m.PasswordSecond, new { Class="form-control" })
+                        <span asp-validation-for="PasswordSecond" class="text-danger">This field must be filled</span>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px">
+                        <input type="submit" value="Register" class="btn btn-primary" />
+                    </div>
+                </form>
+            }
+            
+            <div class="form-group" style="margin-top: 10px">
+                <input type="button" class="btn btn-light"
+         value="Sign in"
+         onclick="location.href='@Url.Action("Index", "Authorization")'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

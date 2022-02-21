@@ -1,0 +1,37 @@
+﻿@model MyShop.ViewModels.UserAuthorizationViewModel
+
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<div class="text-start pb-3  p-3 bg-white" style="width: 30%; display: block; margin: auto !important;">
+
+    <main class="form-signin" style="width: 400px">
+        @using (Html.BeginForm("Authorize", "Authorization", FormMethod.Get))
+        {
+            <form>
+            <h1 class="h3 mb-3 fw-normal">Please sign in to authorize</h1>
+
+            <div class="form-floating">
+                @Html.TextBoxFor(m => m.Email, new { Class="form-control" })
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                @Html.TextBoxFor(m => m.Password, new { Class="form-control" })
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit" style="margin: 5px">Sign in</button>
+            </form>
+        }
+        <br/>
+        <button class="w-100 btn btn-lg btn-light" type="submit" style="margin: 5px"
+        onclick="location.href='@Url.Action("Index", "Registration")'">Sign up</button>
+    </main>
+</div>
+

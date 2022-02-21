@@ -1,0 +1,96 @@
+﻿@using MyShop.MyFolder;
+
+@model IEnumerable<Good>
+
+@section Scripts {
+    <script src="~/js/test.js">
+    </script>
+}
+
+<div style="padding: 10px">
+    <h1>My Cart</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">@Html.DisplayNameFor(model => model.Name)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParam"]">@Html.DisplayNameFor(model => model.Price)</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShortDesc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AuthorMail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    Quantity Ordered
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @{
+        double sumP = 0;
+    }
+    @foreach (var item in Model) {
+        if (item.AuthorMail != CurrentUser.currentUser.Email)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td id="price+@item.ID">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td id="quantity+@item.Quantity">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortDesc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorMail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td id="valueContainer+@item.ID" style="display: none">1</td>
+                <td>
+                    <input type="number" min="1" max="@item.Quantity" value="1" id="quantityButton+@item.ID" class="btn btn-light" onchange="First(@Convert.ToDouble(item.Price), @item.ID, this.max)">
+                </td>
+                <td>
+                    @if (item.AuthorMail == CurrentUser.currentUser.Email)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                    }
+                    <a class="btn btn-primary" asp-controller="Cart" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                    <a class="btn btn-primary" asp-controller="Cart" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    @if (item.AuthorMail == CurrentUser.currentUser.Email)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+
+                    }
+                </td>
+                    </tr>
+                    
+                    sumP += Convert.ToDouble(item.Price);
+        }
+    }
+        </tbody>
+    </table>
+    <form asp-controller="Cart" asp-action="MakeOrder">
+        <input type="submit" value="Make Order" class="btn btn-primary"/>
+    </form>
+    <h2>Total sum:</h2>
+    <p id="totalSum"">@sumP</p>  
+    <a class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Goods")'">To goods</a>
+</div>
